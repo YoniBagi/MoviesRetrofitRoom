@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="detailsMovieFragment"
+            type="com.tings.tingsmovies.DetailsMovieFragment" />
+
+        <variable
+            name="movie"
+            type="com.tings.tingsmovies.dataModel.Movie" />
+    </data>
+
+    <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".DetailsMovieFragment">
+
+        <ImageView
+            android:id="@+id/ivDetailsMovie"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="35dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvDetailsTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ivDetailsMovie"
+            android:textAlignment="center"
+            tools:text="tvTilte"
+            android:textSize="30sp"
+            android:layout_marginTop="30dp"
+            android:text="@{movie.title}"/>
+
+        <TextView
+            android:id="@+id/tvDetailsRating"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/tvDetailsTitle"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/tvDetailsReleaseYear"
+            android:layout_marginTop="100dp"
+            tools:text="tvRating"
+            android:textSize="20sp"
+            android:text="@{String.valueOf(movie.rating)}"/>
+        <TextView
+            android:id="@+id/tvDetailsReleaseYear"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="@+id/tvDetailsRating"
+            app:layout_constraintStart_toEndOf="@+id/tvDetailsRating"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:text="tvReleaseYear"
+            android:textSize="20sp"
+            android:text="@{String.valueOf(movie.releaseYear)}"/>
+
+
+    </android.support.constraint.ConstraintLayout>
+</layout>
