@@ -1,26 +1,38 @@
 package com.tings.tingsmovies.dataModel;
 
 import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.PrimaryKey;
+import android.arch.persistence.room.TypeConverters;
 import android.os.Parcel;
 import android.os.Parcelable;
 
 import com.google.gson.annotations.SerializedName;
+import com.tings.tingsmovies.converters.ConverterListString;
 
 import java.util.List;
 
 /**
  * Created by Yonatan Bagizada on 2019-06-22.
  */
-@Entity
+@Entity(tableName = "movie_table")
+@TypeConverters({ConverterListString.class})
 public class Movie implements Parcelable {
+
+    @PrimaryKey(autoGenerate = true)
+    private int id;
+
     @SerializedName("title")
     private String mTitle;
+
     @SerializedName("image")
     private String mImage;
+
     @SerializedName("rating")
     private float mRating;
+
     @SerializedName("releaseYear")
     private int mReleaseYear;
+
     @SerializedName("genre")
     private List<String> mGenre;
 
@@ -58,6 +70,14 @@ public class Movie implements Parcelable {
         }
     };
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public String getTitle() {
         return mTitle;
     }
@@ -74,7 +94,30 @@ public class Movie implements Parcelable {
         return mReleaseYear;
     }
 
+    public void setTitle(String title) {
+        mTitle = title;
+    }
+
+    public void setImage(String image) {
+        mImage = image;
+    }
+
+    public void setRating(float rating) {
+        mRating = rating;
+    }
+
+    public void setReleaseYear(int releaseYear) {
+        mReleaseYear = releaseYear;
+    }
+
+    public void setGenre(List<String> genre) {
+        mGenre = genre;
+    }
+
     public List<String> getGenre() {
         return mGenre;
+    }
+
+    public Movie() {
     }
 }

@@ -1,6 +1,9 @@
 package com.tings.tingsmovies.managers;
 
+import android.content.Context;
+
 import com.tings.tingsmovies.dataModel.Movie;
+import com.tings.tingsmovies.database.MovieRepository;
 import com.tings.tingsmovies.network.Repository;
 
 import java.util.List;
@@ -12,46 +15,47 @@ import retrofit2.Response;
 /**
  * Created by Yonatan Bagizada on 2019-06-22.
  */
+
+/**
+ * A class is responsible for bringing information from the network or the data base
+ */
 public class DataManager {
     private static final DataManager mInstance = new DataManager();
+
+
+    private DataCallBack mDataCallBack;
+    private List<Movie> mMovieList;
 
     public static DataManager getInstance() {
         return mInstance;
     }
 
-//    private Movie mMovie;
-    private DataCallBack mDataCallBack;
-    private List<Movie> mMovieList;
-
-    private DataManager() {
-    }
-
-    public void fetchMovie(){
-        Call<List<Movie>> call = Repository.getInstance().getApiService().getMovies();
-        call.enqueue(new Callback<List<Movie>>() {
-            @Override
-            public void onResponse(Call<List<Movie>> call, Response<List<Movie>> response) {
-                if (response.isSuccessful()){
-                    mMovieList = response.body();
-                    mDataCallBack.fetchMoviesSuccess(response.body());
+    public void fetchMovie(Context context) {
+        final MovieRepository movieRepository = new MovieRepository(context);
+        mMovieList = movieRepository.getAllMovies();
+        if (mMovieList == null || mMovieList.isEmpty()) {
+            Call<List<Movie>> call = Repository.getInstance().getApiService().getMovies();
+            call.enqueue(new Callback<List<Movie>>() {
+                @Override
+                public void onResponse(Call<List<Movie>> call, Response<List<Movie>> response) {
+                    if (response.isSuccessful()) {
+                        movieRepository.insert(response.body());
+                        // instead to sort I call from db and get desc order
+                        mMovieList = movieRepository.getAllMovies();
+                        mDataCallBack.fetchMoviesSuccess(mMovieList);
+                    }
                 }
-            }
 
-            @Override
-            public void onFailure(Call<List<Movie>> call, Throwable t) {
-                mDataCallBack.fetchMoviesFail(t);
-            }
-        });
+                @Override
+                public void onFailure(Call<List<Movie>> call, Throwable t) {
+                    mDataCallBack.fetchMoviesFail(t);
+                }
+            });
+        }else {
+            mDataCallBack.fetchMoviesSuccess(mMovieList);
+        }
     }
 
-    /*public Movie getMovie() {
-        return mMovie;
-    }
-
-    public void setMovie(Movie movie) {
-        mMovie = movie;
-    }
-*/
     public List<Movie> getMovieList() {
         return mMovieList;
     }
@@ -60,8 +64,9 @@ public class DataManager {
         mDataCallBack = dataCallBack;
     }
 
-    public interface DataCallBack{
+    public interface DataCallBack {
         void fetchMoviesSuccess(List<Movie> movieList);
+
         void fetchMoviesFail(Throwable t);
     }
 }

@@ -38,7 +38,7 @@ public class SplashFragment extends Fragment implements DataManager.DataCallBack
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        fragmentSplashBinding = DataBindingUtil.inflate(inflater,R.layout.fragment_splash, container, false);
+        fragmentSplashBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_splash, container, false);
         fragmentSplashBinding.setLifecycleOwner(this);
         return fragmentSplashBinding.getRoot();
     }
@@ -50,7 +50,7 @@ public class SplashFragment extends Fragment implements DataManager.DataCallBack
     }
 
     private void fetchMovies() {
-        DataManager.getInstance().fetchMovie();
+        DataManager.getInstance().fetchMovie(getContext());
     }
 
     @Override

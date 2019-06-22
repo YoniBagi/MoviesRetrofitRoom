@@ -20,7 +20,6 @@ public class MovieListFragment extends Fragment implements MovieListAdapter.Movi
 
 
     public MovieListFragment() {
-        // Required empty public constructor
     }
 
 
