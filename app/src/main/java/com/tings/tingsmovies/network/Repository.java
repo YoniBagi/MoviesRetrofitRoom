@@ -33,6 +33,9 @@ public class Repository {
         return mInstance;
     }
 
+    private Repository(){
+    }
+
     public ApiService getApiService() {
         return sApiService;
     }
