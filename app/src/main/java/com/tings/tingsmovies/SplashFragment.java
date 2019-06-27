@@ -49,6 +49,12 @@ public class SplashFragment extends Fragment implements DataManager.DataCallBack
         fetchMovies();
     }
 
+    @Override
+    public void onStop() {
+        super.onStop();
+        DataManager.getInstance().setDataCallBack(null);
+    }
+
     private void fetchMovies() {
         DataManager.getInstance().fetchMovie(getContext());
     }

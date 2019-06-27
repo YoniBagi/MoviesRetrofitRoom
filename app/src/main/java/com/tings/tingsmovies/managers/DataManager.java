@@ -42,13 +42,17 @@ public class DataManager {
                         movieRepository.insert(response.body());
                         // instead to sort I call from db and get desc order
                         mMovieList = movieRepository.getAllMovies();
-                        mDataCallBack.fetchMoviesSuccess(mMovieList);
+                        if (mDataCallBack != null){
+                            mDataCallBack.fetchMoviesSuccess(mMovieList);
+                        }
                     }
                 }
 
                 @Override
                 public void onFailure(Call<List<Movie>> call, Throwable t) {
-                    mDataCallBack.fetchMoviesFail(t);
+                    if (mDataCallBack != null) {
+                        mDataCallBack.fetchMoviesFail(t);
+                    }
                 }
             });
         }else {
