@@ -39,7 +39,7 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.View
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
-        viewHolder.onBind(mMovieList.get(i));
+        viewHolder.onBind(mMovieList.get(i), i);
     }
 
     @Override
@@ -55,7 +55,7 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.View
             mBinding = binding;
         }
 
-        public void onBind(Movie movie) {
+        public void onBind(Movie movie, int pos) {
             mBinding.setMovieListAdapter(this);
             Glide.with(mContext).load(movie.getImage())
                     .override(300, 300)
@@ -63,10 +63,11 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.View
                     .apply(RequestOptions.circleCropTransform())
                     .into(mBinding.ivMovie);
             mBinding.setMovie(movie);
+            mBinding.setPosition(pos);
             mBinding.executePendingBindings();
         }
 
-        public void onClickItem(Movie movie){
+        public void onClickItem(Movie movie, int position){
             mMovieListAdapterCallBack.onClickItem(movie);
         }
     }
