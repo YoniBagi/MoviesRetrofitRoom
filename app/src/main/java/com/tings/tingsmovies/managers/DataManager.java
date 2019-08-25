@@ -32,7 +32,7 @@ public class DataManager {
 
     public void fetchMovie(Context context) {
         final MovieRepository movieRepository = new MovieRepository(context);
-        mMovieList = movieRepository.getAllMovies();
+        //mMovieList = movieRepository.getAllMovies();
         if (mMovieList == null || mMovieList.isEmpty()) {
             Call<List<Movie>> call = Repository.getInstance().getApiService().getMovies();
             call.enqueue(new Callback<List<Movie>>() {
@@ -41,7 +41,7 @@ public class DataManager {
                     if (response.isSuccessful()) {
                         movieRepository.insert(response.body());
                         // instead to sort I call from db and get desc order
-                        mMovieList = movieRepository.getAllMovies();
+                        // mMovieList = movieRepository.getAllMovies();
                         if (mDataCallBack != null){
                             mDataCallBack.fetchMoviesSuccess(mMovieList);
                         }

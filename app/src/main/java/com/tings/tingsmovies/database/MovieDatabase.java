@@ -12,7 +12,7 @@ import com.tings.tingsmovies.dataModel.Movie;
 /**
  * Created by Yonatan Bagizada on 2019-06-22.
  */
-@Database(entities = {Movie.class}, version = 1)
+@Database(entities = {Movie.class}, version = 1,exportSchema = false)
 public abstract class MovieDatabase extends RoomDatabase {
     private static MovieDatabase sInstance;
 

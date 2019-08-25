@@ -3,13 +3,13 @@
     <data>
         <variable
             name="splashFragment"
-            type="com.tings.tingsmovies.SplashFragment" />
+            type="com.tings.tingsmovies.splashFragment.SplashFragment" />
     </data>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SplashFragment">
+    tools:context=".splashFragment.SplashFragment">
 
     <TextView
         android:layout_width="wrap_content"

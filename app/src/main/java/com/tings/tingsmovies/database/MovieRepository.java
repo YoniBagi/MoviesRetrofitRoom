@@ -1,5 +1,6 @@
 package com.tings.tingsmovies.database;
 
+import android.arch.lifecycle.LiveData;
 import android.content.Context;
 import android.os.AsyncTask;
 
@@ -23,9 +24,10 @@ public class MovieRepository {
         new InsertMoviesAsyncTask(mMovieDao).execute(movies);
     }
 
-    public List<Movie> getAllMovies() {
+    public LiveData<List<Movie>> getAllMovies() {
         try {
             return new GetMoviesAsyncTask(mMovieDao).execute().get();
+
         } catch (ExecutionException e) {
             e.printStackTrace();
         } catch (InterruptedException e) {
@@ -48,7 +50,7 @@ public class MovieRepository {
         }
     }
 
-    private static class GetMoviesAsyncTask extends AsyncTask<Void, Void, List<Movie>>{
+    private static class GetMoviesAsyncTask extends AsyncTask<Void, Void, LiveData<List<Movie>>>{
         private MovieDao mMovieDao;
 
         public GetMoviesAsyncTask(MovieDao movieDao) {
@@ -56,7 +58,7 @@ public class MovieRepository {
         }
 
         @Override
-        protected List<Movie> doInBackground(Void... voids) {
+        protected LiveData<List<Movie>> doInBackground(Void... voids) {
             return mMovieDao.getAllMovies();
         }
     }

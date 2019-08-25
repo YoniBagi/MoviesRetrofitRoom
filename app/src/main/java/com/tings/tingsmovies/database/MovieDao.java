@@ -1,5 +1,6 @@
 package com.tings.tingsmovies.database;
 
+import android.arch.lifecycle.LiveData;
 import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.Query;
@@ -17,5 +18,5 @@ public interface MovieDao {
     void insertAllMovies(List<Movie> movies);
 
     @Query("SELECT * FROM movie_table ORDER BY mReleaseYear DESC")
-    List<Movie> getAllMovies();
+    LiveData<List<Movie>> getAllMovies();
 }
